@@ -105,8 +105,13 @@ Parameters: dataframe ; str
 Returns: str
 '''
 def getRegionFromState(stateDf, state):
-    
-    return
+    #stateDf=pd.read_csv("statemappings.csv")
+    #print("stateDf")
+    #print(stateDf["state"])
+    str=stateDf.loc[stateDf["state"] == state,'region']
+    #print(str.values[0])
+    #print(type(str))
+    return str.values[0]
 
 
 '''
@@ -312,3 +317,4 @@ if __name__ == "__main__":
     test.testParsePosition()
     test.testParseState()
     test.testFindHashtags()
+    test.testGetRegionFromState()
