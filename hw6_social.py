@@ -121,7 +121,37 @@ Parameters: dataframe ; dataframe
 Returns: None
 '''
 def addColumns(data, stateDf):
-    return
+    name_list=[]
+    position_list=[]
+    state_list=[]
+    region_list=[]
+    hashtags_list=[]
+    #data["name"]=[]
+    #data["position"]=[]
+    #data["state"]=[]
+    #data["region"]=[]
+    #data["hashtags"]=[]
+    for index,row in data.iterrows():
+        row_label=row['label']
+        #print(str)
+        names=parseName(row_label)
+        name_list.append(names)
+        position=parsePosition(row_label)
+        position_list.append(position)
+        state=parseState(row_label)
+        state_list.append(state)
+        region=getRegionFromState(stateDf,state)
+        region_list.append(region)
+        text_label=row["text"]
+        hashtags=findHashtags(text_label)
+        hashtags_list.append(hashtags)
+    data["name"]=name_list
+    data["position"]=position_list
+    #print(data["position"])
+    data["state"]=state_list
+    data["region"]=region_list
+    data["hashtags"]=hashtags_list
+    return None 
 
 
 ### PART 2 ###
@@ -318,3 +348,4 @@ if __name__ == "__main__":
     test.testParseState()
     test.testFindHashtags()
     test.testGetRegionFromState()
+    test.testAddColumns()
