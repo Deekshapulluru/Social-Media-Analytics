@@ -4,6 +4,7 @@ Name:
 Roll Number:
 """
 
+from pickle import POP
 import hw6_social_tests as test 
 
 project = "Social" # don't edit this
@@ -16,7 +17,7 @@ nltk.download('vader_lexicon', quiet=True)
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
-endChars = [ " ", "\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
+endChars = [" ","\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
 
 '''
 makeDataFrame(filename)
@@ -79,7 +80,22 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-    return
+    tags=message.split("#")
+    #print(tags)
+    hashtags=[]
+    temp_word=""
+    for i in range(1,len(tags)):
+        for tag in tags[i]:
+            #print(tag)
+            if tag in endChars:
+                break 
+            else:
+                temp_word+=tag 
+        temp_word="#"+temp_word
+        hashtags.append(temp_word)
+        temp_word=""
+    return hashtags
+
 
 
 '''
@@ -89,6 +105,7 @@ Parameters: dataframe ; str
 Returns: str
 '''
 def getRegionFromState(stateDf, state):
+    
     return
 
 
@@ -294,3 +311,4 @@ if __name__ == "__main__":
     test.testParseName()
     test.testParsePosition()
     test.testParseState()
+    test.testFindHashtags()
