@@ -6,6 +6,7 @@ Roll Number:
 
 from pickle import POP
 import hw6_social_tests as test 
+from collections import Counter
 
 project = "Social" # don't edit this
 
@@ -262,7 +263,23 @@ Parameters: dict mapping strs to ints ; int
 Returns: dict mapping strs to ints
 '''
 def mostCommonHashtags(hashtags, count):
-    return
+    sort={}
+    res={}
+    #data=pd.read_csv("data/politicaldata.csv")
+    #df1=pd.read_csv("data/statemappings.csv")
+    #addColumns(data,df1)
+    #hashtags=getHashtagRates(data)
+    x=Counter(hashtags)
+    sort=sorted(x.items(),key=lambda k: -k[1])
+    #print(sort)
+    i=0
+    while (i<count):
+        #res[key][i]=sort[i][1]
+        res[sort[i][0]]=sort[i][1]
+        i=i+1
+    return res
+
+
 
 
 '''
@@ -405,3 +422,4 @@ if __name__ == "__main__":
     test.testGetDataCountByState(df)
     test.testGetDataForRegion(df)
     test.testGetHashtagRates(df)
+    test.testMostCommonHashtags(df)
