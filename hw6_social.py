@@ -319,6 +319,18 @@ Returns: None
 '''
 def graphStateCounts(stateCounts, title):
     import matplotlib.pyplot as plt
+    #title=data["states"]
+    #yvalues=stateCounts
+    l1=list(stateCounts.items())
+    for key,value in l1:
+        label=[key]
+        yvalues=[value]
+        plt.bar(label,yvalues,color="green")
+        plt.xlabel(title,loc="center")
+        plt.xticks(rotation="vertical")
+    plt.show()
+    #print(label,yvalues)
+    #print l1
     return
 
 
@@ -329,6 +341,11 @@ Parameters: dict mapping strs to ints ; dict mapping strs to ints ; int ; str
 Returns: None
 '''
 def graphTopNStates(stateCounts, stateFeatureCounts, n, title):
+    featurerate = {} 
+    for i in stateFeatureCounts:
+    #print(stateFeatureCounts[i] / stateCounts[i]) 
+        featurerate[i] = (stateFeatureCounts[i] / stateCounts[i]) 
+    graphStateCounts(dict(Counter(featurerate).most_common(5)), "Top n Feature") 
     return
 
 
@@ -339,6 +356,7 @@ Parameters: dict mapping strs to (dicts mapping strs to ints) ; str
 Returns: None
 '''
 def graphRegionComparison(regionDicts, title):
+    
     return
 
 
@@ -421,8 +439,9 @@ if __name__ == "__main__":
     test.runWeek2()"""
 
     ## Uncomment these for Week 3 ##
-    """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek3()"""
+    print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
+    test.runWeek3()
+
     df=pd.read_csv("data/politicaldata.csv")
     df1=pd.read_csv("data/statemappings.csv")
     #test.testMakeDataFrame()
@@ -441,3 +460,4 @@ if __name__ == "__main__":
     test.testGetHashtagRates(df)
     test.testMostCommonHashtags(df)
     test.testGetHashtagSentiment(df)
+    
