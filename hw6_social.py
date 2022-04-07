@@ -186,7 +186,8 @@ def addSentimentColumn(data):
         s=findSentiment(classifier,text_label)
         sentiments_list.append(s)
     data["sentiment"]=sentiments_list
-    return
+    #print(data)
+    return 
 
 
 '''
@@ -196,7 +197,25 @@ Parameters: dataframe ; str ; str
 Returns: dict mapping strs to ints
 '''
 def getDataCountByState(data, colName, dataToCount):
-    return
+    #print(data["sentiment"])
+    #data=addSentimentColumn(data)
+    #print(data.columns)
+    dict1 ={} 
+    for index, row in data.iterrows(): 
+        if colName!="" and dataToCount!="":
+            #print(colName) 
+            if (data[colName][index] == dataToCount): 
+                if (data["state"][index] in dict1): 
+                    dict1[data["state"][index]] += 1 
+                else: 
+                    dict1[data["state"][index]] = 1 
+        else: 
+            if data["state"][index] in dict1: 
+                dict1[data["state"][index]] += 1 
+            else: 
+                dict1[data["state"][index]] = 1
+    return dict1
+
 
 
 '''
@@ -206,7 +225,17 @@ Parameters: dataframe ; str
 Returns: dict mapping strs to (dicts mapping strs to ints)
 '''
 def getDataForRegion(data, colName):
-    return
+#     dict={}
+#    # dict[key]={}
+#     for index, row in data.iterrows():  
+#         if row["region"] not in dict: 
+#             dict[row["region"]]={}
+#         if row[colName] in dict[row["region"]]:
+#             dict[row["region"]][row[colName]]+=1
+#         else:
+#             dict[row["region"]][row[colName]]=1
+#     #print(dict)
+     return 
 
 
 '''
@@ -216,9 +245,7 @@ Parameters: dataframe
 Returns: dict mapping strs to ints
 '''
 def getHashtagRates(data):
-    return
-
-
+    return 
 '''
 mostCommonHashtags(hashtags, count)
 #6 [Check6-2]
@@ -353,12 +380,18 @@ if __name__ == "__main__":
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()"""
-    test.testMakeDataFrame()
-    test.testParseName()
-    test.testParsePosition()
-    test.testParseState()
-    test.testFindHashtags()
-    test.testGetRegionFromState()
-    test.testAddColumns()
-    test.testFindSentiment()
-    test.testAddSentimentColumn()
+    df=pd.read_csv("data/politicaldata.csv")
+    df1=pd.read_csv("data/statemappings.csv")
+    #test.testMakeDataFrame()
+    #test.testParseName()
+    #test.testParsePosition()
+    #est.testParseState()
+    #est.testFindHashtags()
+    #est.testGetRegionFromState()
+    #test.testAddColumns()
+    #test.testFindSentiment()
+    #test.testAddSentimentColumn()
+    addSentimentColumn(df)
+    addColumns(df,df1)
+    test.testGetDataCountByState(df)
+    test.testGetDataForRegion(df)
