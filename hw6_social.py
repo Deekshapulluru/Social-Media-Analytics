@@ -245,7 +245,16 @@ Parameters: dataframe
 Returns: dict mapping strs to ints
 '''
 def getHashtagRates(data):
-    return 
+    hashtags_dict={}
+    for index,row in data.iterrows():
+        hash_tags=row["hashtags"]
+        for i in range(len(hash_tags)):
+            if hash_tags[i] not in hashtags_dict:
+                hashtags_dict[hash_tags[i]]=1
+            else:
+                hashtags_dict[hash_tags[i]]+=1
+    #print(hashtags_dict)
+    return hashtags_dict 
 '''
 mostCommonHashtags(hashtags, count)
 #6 [Check6-2]
@@ -395,3 +404,4 @@ if __name__ == "__main__":
     addColumns(df,df1)
     test.testGetDataCountByState(df)
     test.testGetDataForRegion(df)
+    test.testGetHashtagRates(df)
