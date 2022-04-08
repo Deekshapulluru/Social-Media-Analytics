@@ -4,7 +4,8 @@ Name:
 Roll Number:
 """
 
-import hw6_social_tests as test
+from pickle import POP
+import hw6_social_tests as test 
 
 project = "Social" # don't edit this
 
@@ -16,7 +17,7 @@ nltk.download('vader_lexicon', quiet=True)
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
-endChars = [ " ", "\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
+endChars = [" ","\n", "#", ".", ",", "?", "!", ":", ";", ")" ]
 
 '''
 makeDataFrame(filename)
@@ -25,7 +26,8 @@ Parameters: str
 Returns: dataframe
 '''
 def makeDataFrame(filename):
-    return
+    df=pd.read_csv(filename)
+    return df
 
 
 '''
@@ -35,7 +37,13 @@ Parameters: str
 Returns: str
 '''
 def parseName(fromString):
-    return
+    f1=fromString.find(":")
+    f2=fromString.find("(")
+    #print (f1)
+    #print (f2)
+    str=fromString[f1+2:f2-1:]
+    #print (str)
+    return str
 
 
 '''
@@ -45,7 +53,10 @@ Parameters: str
 Returns: str
 '''
 def parsePosition(fromString):
-    return
+    f1=fromString.find("(")
+    f2=fromString.find("from")
+    str=fromString[f1+1:f2-1:]
+    return str 
 
 
 '''
@@ -55,7 +66,11 @@ Parameters: str
 Returns: str
 '''
 def parseState(fromString):
-    return
+    f1=fromString.find("from")
+    f2=fromString.find(")")
+    str=fromString[f1+5:f2:]
+    #print (str)
+    return str 
 
 
 '''
@@ -65,7 +80,22 @@ Parameters: str
 Returns: list of strs
 '''
 def findHashtags(message):
-    return
+    tags=message.split("#")
+    #print(tags)
+    hashtags=[]
+    temp_word=""
+    for i in range(1,len(tags)):
+        for tag in tags[i]:
+            #print(tag)
+            if tag in endChars:
+                break 
+            else:
+                temp_word+=tag 
+        temp_word="#"+temp_word
+        hashtags.append(temp_word)
+        temp_word=""
+    return hashtags
+
 
 
 '''
@@ -75,6 +105,7 @@ Parameters: dataframe ; str
 Returns: str
 '''
 def getRegionFromState(stateDf, state):
+    
     return
 
 
@@ -262,10 +293,10 @@ def scatterPlot(xValues, yValues, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    """print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    test.runWeek1()"""
 
     ## Uncomment these for Week 2 ##
     """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
@@ -276,3 +307,8 @@ if __name__ == "__main__":
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()"""
+    test.testMakeDataFrame()
+    test.testParseName()
+    test.testParsePosition()
+    test.testParseState()
+    test.testFindHashtags()
