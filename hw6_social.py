@@ -4,7 +4,7 @@ Name:
 Roll Number:
 """
 
-import hw6_social_tests as test
+import hw6_social_tests as test 
 
 project = "Social" # don't edit this
 
@@ -25,7 +25,8 @@ Parameters: str
 Returns: dataframe
 '''
 def makeDataFrame(filename):
-    return
+    df=pd.read_csv(filename)
+    return df
 
 
 '''
@@ -35,7 +36,13 @@ Parameters: str
 Returns: str
 '''
 def parseName(fromString):
-    return
+    f1=fromString.find(":")
+    f2=fromString.find("(")
+    #print (f1)
+    #print (f2)
+    str=fromString[f1+2:f2-1:]
+    #print (str)
+    return str
 
 
 '''
@@ -45,7 +52,10 @@ Parameters: str
 Returns: str
 '''
 def parsePosition(fromString):
-    return
+    f1=fromString.find("(")
+    f2=fromString.find("from")
+    str=fromString[f1+1:f2-1:]
+    return str 
 
 
 '''
@@ -55,7 +65,11 @@ Parameters: str
 Returns: str
 '''
 def parseState(fromString):
-    return
+    f1=fromString.find("from")
+    f2=fromString.find(")")
+    str=fromString[f1+5:f2:]
+    #print (str)
+    return str 
 
 
 '''
@@ -262,10 +276,10 @@ def scatterPlot(xValues, yValues, labels, title):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-    print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
+    """print("\n" + "#"*15 + " WEEK 1 TESTS " +  "#" * 16 + "\n")
     test.week1Tests()
     print("\n" + "#"*15 + " WEEK 1 OUTPUT " + "#" * 15 + "\n")
-    test.runWeek1()
+    test.runWeek1()"""
 
     ## Uncomment these for Week 2 ##
     """print("\n" + "#"*15 + " WEEK 2 TESTS " +  "#" * 16 + "\n")
@@ -276,3 +290,7 @@ if __name__ == "__main__":
     ## Uncomment these for Week 3 ##
     """print("\n" + "#"*15 + " WEEK 3 OUTPUT " + "#" * 15 + "\n")
     test.runWeek3()"""
+    test.testMakeDataFrame()
+    test.testParseName()
+    test.testParsePosition()
+    test.testParseState()
