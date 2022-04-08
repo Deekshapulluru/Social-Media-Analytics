@@ -108,10 +108,11 @@ Returns: str
 def getRegionFromState(stateDf, state):
     #stateDf=pd.read_csv("statemappings.csv")
     #print("stateDf")
-    #print(stateDf["state"])
+    #print(stateDf["state"]
     str=stateDf.loc[stateDf["state"] == state,'region']
     #print(str.values[0])
     #print(type(str))
+    #print(str)
     return str.values[0]
 
 
@@ -356,7 +357,34 @@ Parameters: dict mapping strs to (dicts mapping strs to ints) ; str
 Returns: None
 '''
 def graphRegionComparison(regionDicts, title):
+    feature_names=[]
+    region_names=[]
+    region_feature=[]
+    #print(regionDicts)
+    #print(len(regionDicts))
+    for key,values in regionDicts.items():
+        feature_names.append(key)
+        temp=[]
+        for region,feature in values.items():
+            if region not in region_names:
+                region_names.append(region)
+            temp.append(feature)
+        region_feature.append(temp)
+    sideBySideBarPlots(region_names,feature_names,region_feature,title)
+    return 
     
+        #feature_names[i]=data["region"][i]
+        #lst=[]
+
+
+
+
+
+    #dict1={}
+    #dict1[key]={}
+    #for i in regionDicts:
+        
+
     return
 
 
@@ -367,6 +395,7 @@ Parameters: dataframe
 Returns: None
 '''
 def graphHashtagSentimentByFrequency(data):
+
     return
 
 
@@ -447,9 +476,9 @@ if __name__ == "__main__":
     #test.testMakeDataFrame()
     #test.testParseName()
     #test.testParsePosition()
-    #est.testParseState()
-    #est.testFindHashtags()
-    #est.testGetRegionFromState()
+    #test.testParseState()
+    #test.testFindHashtags()
+    #test.testGetRegionFromState()
     #test.testAddColumns()
     #test.testFindSentiment()
     #test.testAddSentimentColumn()
