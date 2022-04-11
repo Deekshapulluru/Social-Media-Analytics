@@ -345,7 +345,7 @@ def graphTopNStates(stateCounts, stateFeatureCounts, n, title):
     for i in stateFeatureCounts:
     #print(stateFeatureCounts[i] / stateCounts[i]) 
         featurerate[i] = (stateFeatureCounts[i] / stateCounts[i]) 
-    graphStateCounts(dict(Counter(featurerate).most_common(5)), "Top n Feature") 
+    graphStateCounts(dict(Counter(featurerate).most_common(n)), title) 
     return
 
 
